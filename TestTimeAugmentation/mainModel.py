@@ -32,7 +32,7 @@ def models(listaModels,pathImg,option):
             if (os.path.splitext(os.path.basename(pathImg+'/../salida/'+model.pathPesos))[0]) == dir:
                 #Then we list the files in that folder
                 images = os.listdir(pathImg+'/../salida/'+dir)
-                model.predict(pathImg+'/../salida/'+dir, pathImg+'/../salida/'+dir)
+                model.predict(pathImg+'/../salida/'+dir, pathImg+'/../salida/'+dir, 0.5)
 
 
 
