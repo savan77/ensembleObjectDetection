@@ -8,3 +8,4 @@ clodsa
 imageio
 scikit-image
 future
+opencv-python
