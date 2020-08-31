@@ -25,9 +25,16 @@ def main(args):
     if 'yolo_darknet' in models_list:
         yoloDarknet = testTimeAugmentation.DarknetYoloPred('/mnt/weights/yolov3.weights', '/mnt/weights/coco.names','/mnt/weights/yolov3.cfg')
         listModels.append(yoloDarknet)
+    if 'ssd_resnet' in models_list:
+        ssdResnet = testTimeAugmentation.MXnetSSD512Pred('/mnt/weights/ssd_512_resnet50_v1_voc-9c8b225a.params', '/mnt/weights/classesMXnet.txt')
+        listModels.append(ssdResnet)
+    if 'faster_resnet' in models_list:
+        fasterResnet = testTimeAugmentation.MXnetFasterRCNNPred('/mnt/weights/faster_rcnn_resnet50_v1b_voc-447328d8.params', '/mnt/weights/classesMXnet.txt')
+        listModels.append(fasterResnet)
         
 #     listaModels = [retinaResnet50, maskRcnn]
     models(listModels,args.images_path,args.option, args.combine)
+    print(os.listdir('/mnt/weights/'))
     
 
 if __name__ == "__main__":
