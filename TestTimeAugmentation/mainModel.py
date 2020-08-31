@@ -8,10 +8,10 @@ from imutils import paths
 import shutil
 
 def models(listaModels,pathImg,option, combine=False):
-    print(combine)
-    if not combine:
+    if combine=='False':
         # 1. First we create the folder where we will store the resulting images and create as many folders as we have models
-        os.mkdir(pathImg+'/../salida')
+        if not os.path.exists(pathImg+'/../salida'):
+            os.mkdir(pathImg+'/../salida')
         for model in listaModels:
             os.mkdir(pathImg+'/../salida/'+os.path.splitext(os.path.basename(model.pathPesos))[0])
 
