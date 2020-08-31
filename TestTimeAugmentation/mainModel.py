@@ -37,12 +37,12 @@ def models(listaModels,pathImg,option, combine=False):
                     images = os.listdir(pathImg+'/../salida/'+dir)
                     model.predict(pathImg+'/../salida/'+dir,pathImg+'/../salida/'+dir, 0.5)
 
-        list_dir = os.listdir("/mnt/data/salida")
+        list_dir = os.listdir(pathImg+'/../salida')
         dest = "/mnt/output/"
 
         for sub_dir in list_dir:
             print("sub dir:", sub_dir)
-            dir_to_move = os.path.join("/mnt/data/salida", sub_dir)
+            dir_to_move = os.path.join(pathImg+'/../salida', sub_dir)
             shutil.move(dir_to_move, dest)
 
     else:
