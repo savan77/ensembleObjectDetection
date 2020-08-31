@@ -27,7 +27,7 @@ def main(args):
         listModels.append(yoloDarknet)
         
 #     listaModels = [retinaResnet50, maskRcnn]
-    models(listModels,args.images_path,args.option)
+    models(listModels,args.images_path,args.option, args.combine)
     
 
 if __name__ == "__main__":
@@ -35,5 +35,6 @@ if __name__ == "__main__":
     parser.add_argument('--models', default="retinanet,yolo_darknet")
     parser.add_argument('--images_path', default='/data/images')
     parser.add_argument('--option', default='unanimous')
+    parser.add_argument("--combine", default=False)
     args = parser.parse_args()
     main(args)

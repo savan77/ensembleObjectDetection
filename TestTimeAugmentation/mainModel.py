@@ -5,43 +5,53 @@ import shutil
 import argparse
 import ensembleOptions
 from imutils import paths
+import shutil
 
-def models(listaModels,pathImg,option, combine=True):
-    # 1. First we create the folder where we will store the resulting images and create as many folders as we have models
-    os.mkdir(pathImg+'/../salida')
-    for model in listaModels:
-        os.mkdir(pathImg+'/../salida/'+os.path.splitext(os.path.basename(model.pathPesos))[0])
+def models(listaModels,pathImg,option, combine=False):
+    print(combine)
+    if not combine:
+        # 1. First we create the folder where we will store the resulting images and create as many folders as we have models
+        os.mkdir(pathImg+'/../salida')
+        for model in listaModels:
+            os.mkdir(pathImg+'/../salida/'+os.path.splitext(os.path.basename(model.pathPesos))[0])
 
-    # 2. We create a list with the folders we have created
-    listDirOut = []
-    for filename in os.listdir(pathImg+'/../salida'):
-        if os.path.isdir(pathImg+'/../salida/'+filename) == True:
-            listDirOut.append(pathImg+'/../salida/'+filename)
-
-
-    # 3. we copy the images from the initial folder to each of the created folders
-    for dire in listDirOut:
-        for fich in os.listdir(pathImg):
-            shutil.copy(pathImg+'/'+fich, dire+'/')
+        # 2. We create a list with the folders we have created
+        listDirOut = []
+        for filename in os.listdir(pathImg+'/../salida'):
+            if os.path.isdir(pathImg+'/../salida/'+filename) == True:
+                listDirOut.append(pathImg+'/../salida/'+filename)
 
 
-    # 4. Generate xml
-    for model in listaModels:
-        #If the model matches the name of the folder, we will predict it is only folder
-        for dir in os.listdir(pathImg+'/../salida/'):
-            if (os.path.splitext(os.path.basename(pathImg+'/../salida/'+model.pathPesos))[0]) == dir:
-                #Then we list the files in that folder
-                images = os.listdir(pathImg+'/../salida/'+dir)
-                model.predict(pathImg+'/../salida/'+dir, pathImg+'/../salida/'+dir, 0.5)
+        # 3. we copy the images from the initial folder to each of the created folders
+        for dire in listDirOut:
+            for fich in os.listdir(pathImg):
+                shutil.copy(pathImg+'/'+fich, dire+'/')
 
 
-    if combine:
+        # 4. Generate xml
+        for model in listaModels:
+            #If the model matches the name of the folder, we will predict it is only folder
+            for dir in os.listdir(pathImg+'/../salida/'):
+                if (os.path.splitext(os.path.basename(pathImg+'/../salida/'+model.pathPesos))[0]) == dir:
+                    #Then we list the files in that folder
+                    images = os.listdir(pathImg+'/../salida/'+dir)
+                    model.predict(pathImg+'/../salida/'+dir,pathImg+'/../salida/'+dir, 0.5)
+
+        list_dir = os.listdir("/mnt/data/salida")
+        dest = "/mnt/output/"
+
+        for sub_dir in list_dir:
+            print("sub dir:", sub_dir)
+            dir_to_move = os.path.join("/mnt/data/salida", sub_dir)
+            shutil.move(dir_to_move, dest)
+
+    else:
         # 5. We perform the ensemble method
-        for dirOut in os.listdir(pathImg+'/../salida/'):
-            for file in list(paths.list_files(pathImg+'/../salida/'+dirOut, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"))):
+        for dirOut in os.listdir("/mnt/output"):
+            for file in list(paths.list_files('/mnt/output/'+dirOut, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"))):
                 os.remove(file)
 
-        ensembleOptions.ensembleOptions(pathImg+'/../salida/', option)
+        ensembleOptions.ensembleOptions('/mnt/output/', option)
 
 
 if __name__== "__main__":
