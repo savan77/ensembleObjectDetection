@@ -38,14 +38,15 @@ def models(listaModels,pathImg,option, combine=False):
                     model.predict(pathImg+'/../salida/'+dir,pathImg+'/../salida/'+dir, 0.5)
         print("list salid", os.listdir(pathImg+'/../salida'))
         list_dir = os.listdir(pathImg+'/../salida')
-        dest = "/mnt/output/"
-        shutil.move(pathImg+'/../salida/', '/mnt/output')
-#         for sub_dir in list_dir:
-#             print("sub dir:", sub_dir)
-#             for file in os.listdir(os.path.join(pathImg+'/../salida',sub_dir)):
-#                 print("file:", file)
-#                 dir_to_move = os.path.join(pathImg+'/../salida', sub_dir, file)
-#                 shutil.move(dir_to_move, os.path.join(dest, sub_dir, file))
+        dest = "/mnt/output"
+#         shutil.move(pathImg+'/../salida/', '/mnt/output')
+        for sub_dir in list_dir:
+            print("sub dir:", sub_dir)
+            os.makedirs(os.path.join("/mnt/output", sub_dir))
+            for file in os.listdir(os.path.join(pathImg+'/../salida',sub_dir)):
+                print("file:", file)
+                dir_to_move = os.path.join(pathImg+'/../salida', sub_dir, file)
+                os.rename(dir_to_move, os.path.join(dest, sub_dir, file))
 
     else:
         # 5. We perform the ensemble method
