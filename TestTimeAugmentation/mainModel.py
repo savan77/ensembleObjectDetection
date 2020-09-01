@@ -36,7 +36,7 @@ def models(listaModels,pathImg,option, combine=False):
                     #Then we list the files in that folder
                     images = os.listdir(pathImg+'/../salida/'+dir)
                     model.predict(pathImg+'/../salida/'+dir,pathImg+'/../salida/'+dir, 0.5)
-
+        print("list salid", os.listdir(pathImg+'/../salida'))
         list_dir = os.listdir(pathImg+'/../salida')
         dest = "/mnt/output/"
         shutil.move(pathImg+'/../salida/', '/mnt/output')
