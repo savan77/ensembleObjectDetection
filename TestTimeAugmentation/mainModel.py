@@ -42,7 +42,7 @@ def models(listaModels,pathImg,option, combine=False):
 
         for sub_dir in list_dir:
             print("sub dir:", sub_dir)
-            for file in os.listdir(sub_dir):
+            for file in os.listdir(os.path.join(pathImg+'/../salida',sub_dir)):
                 print("file:", file)
                 dir_to_move = os.path.join(pathImg+'/../salida', sub_dir, file)
                 shutil.move(dir_to_move, os.path.join(dest, sub_dir, file))
