@@ -50,11 +50,16 @@ def models(listaModels,pathImg,option, combine=False):
 
     else:
         # 5. We perform the ensemble method
-        for dirOut in os.listdir("/mnt/output"):
-            for file in list(paths.list_files('/mnt/output/'+dirOut, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"))):
+        for dirOut in os.listdir("/mnt/data/datasets"):
+            for file in list(paths.list_files('/mnt/data/datasets/'+dirOut, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"))):
                 os.remove(file)
 
-        ensembleOptions.ensembleOptions('/mnt/output/', option)
+        ensembleOptions.ensembleOptions('/mnt/data/datasets', option)
+        os.makedirs("/mnt/output/output")
+        for sub_dir in os.listdir("/mnt/data/datasets/output"):
+            print("sub dir2:", sub_dir)
+            dir_to_move = os.path.join('/mnt/data/datasets/output', file)
+            shutil.move(dir_to_move, os.path.join('/mnt/output/output', file))
 
 
 if __name__== "__main__":
