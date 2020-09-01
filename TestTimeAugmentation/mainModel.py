@@ -55,11 +55,13 @@ def models(listaModels,pathImg,option, combine=False):
                 os.remove(file)
 
         ensembleOptions.ensembleOptions('/mnt/data/datasets', option)
+        print('print datasets', os.listdir('/mnt/data/datasets'))
+        print("print output", os.listdir('/mnt/data/datasets/output'))
         os.makedirs("/mnt/output/output")
         for sub_dir in os.listdir("/mnt/data/datasets/output"):
             print("sub dir2:", sub_dir)
-            dir_to_move = os.path.join('/mnt/data/datasets/output', file)
-            shutil.move(dir_to_move, os.path.join('/mnt/output/output', file))
+            dir_to_ = os.path.join('/mnt/data/datasets/output', sub_dir)
+            shutil.move(dir_to_, os.path.join('/mnt/output/output', sub_dir))
 
 
 if __name__== "__main__":
